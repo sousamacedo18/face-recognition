@@ -4,6 +4,8 @@
  */
 package Principal;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Carlos
@@ -72,6 +74,15 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String email = jTextField2.getText();
+        String password = jPasswordField1.getPassword().toString();
+        
+        if(email.equals("admin") ){
+           
+            Menu m =new  Menu(email);
+            m.setVisible(true);
+        }else{
+          
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
