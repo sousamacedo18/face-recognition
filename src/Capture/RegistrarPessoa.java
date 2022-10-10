@@ -4,12 +4,15 @@
  */
 package Capture;
 
+import Conexao.ConexaoBanco;
+
 /**
  *
  * @author Carlos
  */
 public class RegistrarPessoa extends javax.swing.JFrame {
-
+  ConexaoBanco conecta = new ConexaoBanco();
+  
     /**
      * Creates new form RegistrarPessoa
      */
@@ -31,6 +34,7 @@ public class RegistrarPessoa extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,14 +50,17 @@ public class RegistrarPessoa extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Nome");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 360, 30));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 360, 30));
+
+        jLabel3.setName("text_id_label"); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 20));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 400, 210));
 
@@ -80,7 +87,19 @@ public class RegistrarPessoa extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    private void showIdUser(){
+        conecta.conexao();
+        try {
+            conecta.exectaSQL("SELECT *FROM person ORDER BY id DESC LIMIT 1");
+            conecta.rs.first();
+            jLabel3.setText(String.valueOf(conecta.rs.getInt("id")));
+            int id=Integer.parseInt(jLabel3.getText());
+            id++;
+            jLabel3.setText(String.valueOf(id));
+                  
+        } catch (Exception e) {
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -120,6 +139,7 @@ public class RegistrarPessoa extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
