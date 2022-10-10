@@ -7,6 +7,7 @@ package Control;
 import Conexao.ConexaoBanco;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import Model.ModelPerson;
 
 /**
  *
@@ -14,14 +15,23 @@ import java.sql.SQLException;
  */
 public class ControlPerson {
     ConexaoBanco conecta = new ConexaoBanco();
-    public void inserir(Model.ModelPerson mod) throws SQLException{
-            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO person(id,name)values(?,?)");
-            pst.setInt(1, mod.getId());
-            pst.setString(2,mod.getName());
-            pst.executeUpdate();
+  
+
+    public void inserir(ModelPerson mod) {
+        try {
+            conecta.conexao();
+            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO person(name)values(?)");
+            pst.setString(1,mod.getName());
+            pst.execute();
             System.out.println("Cadastro salvo com sucesso!!!!");
             conecta.desconecta();
+        } catch (Exception e) {
+            System.out.println("error"+e);
+        }
+
         
-    }
+      
+}
+
     
 }
